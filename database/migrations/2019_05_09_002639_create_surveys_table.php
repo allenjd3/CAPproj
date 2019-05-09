@@ -18,7 +18,7 @@ class CreateSurveysTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('module_id');
             $table->datetime('due_date');
-            $table->boolean('is_sent');
+            $table->boolean('is_sent')->default(false);
             $table->timestamps();
         });
     }

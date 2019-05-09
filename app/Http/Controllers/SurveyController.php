@@ -13,4 +13,13 @@ class SurveyController extends Controller
         $survey = Survey::find($id);
         return $survey;
     }
+
+    public function store(Request $request) {
+        $survey = Survey::create($request->toArray());
+
+        return response()->json([
+            'created' => true,
+            'survey' => $survey
+        ], 202);
+    }
 }

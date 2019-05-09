@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Module;
 use App\Survey;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -30,6 +31,25 @@ class SurveyControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'is_sent' => true
+        ]);
+    }
+
+    /**
+    *@test
+    */
+    function a_user_can_store_a_survey() {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+        $module = factory(Module::class)->create();
+        $response = $this->json('POST', 'api/survey/', [
+            'module_id'=>$module->id,
+            'user_id'=>$user->id,
+            'due_date'=>Carbon::parse('+1 week')->toDateTimeString()
+        ]);
+
+        $response->assertStatus(202);
+        $response->assertJson([
+            'created'=>true,
         ]);
     }
 }

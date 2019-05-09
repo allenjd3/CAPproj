@@ -10,7 +10,7 @@ $factory->define(Survey::class, function (Faker $faker) {
     return [
         'user_id'=> 1,
         'module_id' => 1,
-        'due_date' => Carbon::parse('+1 week')->toDateTimeString(),
+        'due_date' => Carbon::parse('+1 week'),
         'is_sent' => false
     ];
 });

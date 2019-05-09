@@ -15,4 +15,5 @@ use Illuminate\Http\Request;
 
 Route::get('/module/{id}', 'ModuleController@show');
 Route::get('/survey/{id}', 'SurveyController@show');
+Route::post('/survey/', 'SurveyController@store');
 
