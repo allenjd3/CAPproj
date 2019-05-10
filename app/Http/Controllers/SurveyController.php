@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 
 class SurveyController extends Controller
 {
+    public function index()
+    {
+        $surveys = Survey::all();
+        return response()->json([
+            'surveys' => $surveys
+        ]);
+    }
     
     public function show($id)
     {
         $survey = Survey::find($id);
-        return $survey;
+        return response()->json([
+            'survey' => $survey
+        ]);
     }
 
     public function store(Request $request) {
