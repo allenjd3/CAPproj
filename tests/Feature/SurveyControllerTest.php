@@ -30,7 +30,7 @@ class SurveyControllerTest extends TestCase
      
         $response->assertStatus(200);
         $response->assertJson([
-            'is_sent' => true
+            'survey'=>['is_sent'=>true]
         ]);
     }
 
@@ -67,18 +67,7 @@ class SurveyControllerTest extends TestCase
         $this->assertCount(5, $response->getData()->surveys);
     }
 
-    /**
-    *@test
-    */
-    function a_user_can_view_all_a_users_surveys() {
-        $module = factory(Module::class)->create();
-        
-        $users = factory(User::class, 5)->create()->each(function($u){
-            $u->surveys()->save(factory(Survey::class)->make([
-                'user_id'=>$u->id
-            ]));
-        });
+    
 
-        $this->assertCount(5, Survey::all()->toArray());
-    }
+    
 }
