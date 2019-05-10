@@ -58,8 +58,6 @@ class SurveyControllerTest extends TestCase
     */
     function a_user_can_view_all_surveys() {
 
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
         $module = factory(Module::class)->create();
         $surveys = factory(Survey::class, 5)->create();
@@ -67,5 +65,20 @@ class SurveyControllerTest extends TestCase
         $response = $this->json('GET', 'api/survey/');
         $response->assertStatus(200);
         $this->assertCount(5, $response->getData()->surveys);
+    }
+
+    /**
+    *@test
+    */
+    function a_user_can_view_all_a_users_surveys() {
+        $module = factory(Module::class)->create();
+        
+        $users = factory(User::class, 5)->create()->each(function($u){
+            $u->surveys()->save(factory(Survey::class)->make([
+                'user_id'=>$u->id
+            ]));
+        });
+
+        $this->assertCount(5, Survey::all()->toArray());
     }
 }
