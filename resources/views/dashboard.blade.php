@@ -18,7 +18,7 @@
 
                 <div class="w-full p-6">
                     <p class="text-grey-darkest">
-                        You are logged in!
+                        <surveys></surveys>
                     </p>
                 </div>
             </div>
