@@ -10,7 +10,9 @@ class ModuleController extends Controller
     
     public function show($id) {
         $module = Module::findOrFail($id);
-        return $module;
+        return response()->json([
+            'module' => $module
+        ], 202);
     }
 
     public function store(Request $request) {
@@ -18,6 +20,15 @@ class ModuleController extends Controller
 
         return response()->json([
             'created'=>true,
+            'module'=>$module
+        ], 202);
+    }
+
+    public function update(Request $request, $id) {
+        $module = Module::findOrFail($id);
+        $module->update($request->all());
+        return response()->json([
+            'updated'=>true,
             'module'=>$module
         ], 202);
     }

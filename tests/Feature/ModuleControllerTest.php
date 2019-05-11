@@ -21,10 +21,10 @@ class ModuleControllerTest extends TestCase
 
         $response = $this->json('GET', "api/module/{$module->id}");
 
-        $response->assertStatus(200);
+        $response->assertStatus(202);
 
         $response->assertJson([
-            'number'=>1520
+            'module'=>['number'=>1520]
             ]);
     }
 
@@ -37,6 +37,7 @@ class ModuleControllerTest extends TestCase
             'tests' => ['Na', 'K', 'Cl']
         ]);
 
+        $response->assertStatus(202);
         $response->assertJson([
             'created' => true,
 
@@ -44,5 +45,23 @@ class ModuleControllerTest extends TestCase
 
     }
 
-    
+    /**
+    *@test
+    */
+    function a_user_can_update_a_module() {
+        $module = factory(Module::class)->create([
+            'number' => 2387
+        ]);
+
+        $response = $this->json('PUT', 'api/module/'. $module->id, [
+            'number' => 5678
+        ]);
+
+        $response->assertJson([
+            'updated' => true,
+        ]);
+
+        $mod = Module::find($module->id);
+        $this->assertEquals(5678, $mod->number);
+    }
 }
