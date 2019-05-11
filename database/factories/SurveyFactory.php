@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Survey::class, function (Faker $faker) {
     return [
+        'title'=>'CET-01',
         'user_id'=> 1,
         'module_id' => 1,
         'due_date' => Carbon::parse('+1 week')->toDateTimeString(),

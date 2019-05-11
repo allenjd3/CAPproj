@@ -33,6 +33,7 @@ class ModuleControllerTest extends TestCase
     */
     function a_user_can_create_a_module() {
         $response = $this->json('POST', 'api/module/', [
+            'main_title'=>'Immunology',
             'number' => 1234,
             'tests' => ['Na', 'K', 'Cl']
         ]);
@@ -50,11 +51,13 @@ class ModuleControllerTest extends TestCase
     */
     function a_user_can_update_a_module() {
         $module = factory(Module::class)->create([
-            'number' => 2387
+            'number' => 2387,
+            'main_title' => 'Special Clinical Microsco'
         ]);
 
         $response = $this->json('PUT', 'api/module/'. $module->id, [
-            'number' => 5678
+            'number' => 5678,
+            'main_title' => 'Special Clinical Microscopy'
         ]);
 
         $response->assertJson([
@@ -63,5 +66,6 @@ class ModuleControllerTest extends TestCase
 
         $mod = Module::find($module->id);
         $this->assertEquals(5678, $mod->number);
+        $this->assertEquals('Special Clinical Microscopy', $mod->main_title);
     }
 }

@@ -42,6 +42,7 @@ class SurveyControllerTest extends TestCase
         $user = factory(User::class)->create();
         $module = factory(Module::class)->create();
         $response = $this->json('POST', 'api/survey/', [
+            'title'=>'SC1',
             'module_id'=>$module->id,
             'user_id'=>$user->id,
             'due_date'=>Carbon::parse('+1 week')->toDateTimeString()
