@@ -31,4 +31,13 @@ class SurveyController extends Controller
             'survey' => $survey
         ], 202);
     }
+
+    public function update($id, Request $request) {
+        $survey = Survey::findOrFail($id);
+        $survey->update($request->all());
+
+        return response()->json([
+            'updated'=>true
+        ]);
+    }
 }

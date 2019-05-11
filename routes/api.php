@@ -19,4 +19,5 @@ Route::post('/survey/', 'SurveyController@store');
 Route::get('/survey/', 'SurveyController@index');
 Route::post('/module/', 'ModuleController@store');
 Route::put('/module/{id}', 'ModuleController@update');
+Route::put('/survey/{id}', 'SurveyController@update');
 

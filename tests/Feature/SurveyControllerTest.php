@@ -67,6 +67,26 @@ class SurveyControllerTest extends TestCase
         $this->assertCount(5, $response->getData()->surveys);
     }
 
+        /**
+    *@test
+    */
+    function a_user_can_update_a_survey() {
+        $survey = factory(Survey::class)->create([
+            'due_date' => Carbon::parse('05/30/20')->toDateTimeString()
+        ]);
+
+        $response = $this->json('PUT', 'api/survey/'. $survey->id, [
+            'due_date' => Carbon::parse('05/12/20')->toDateTimeString()
+        ]);
+
+        $response->assertJson([
+            'updated' => true,
+        ]);
+
+        $sur = Survey::find($survey->id);
+        $this->assertEquals(Carbon::parse('05/12/20'), $sur->due_date);
+    }
+
     
 
     
