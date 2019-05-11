@@ -67,7 +67,7 @@ class SurveyControllerTest extends TestCase
         $this->assertCount(5, $response->getData()->surveys);
     }
 
-        /**
+    /**
     *@test
     */
     function a_user_can_update_a_survey() {
