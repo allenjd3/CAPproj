@@ -17,4 +17,5 @@ Route::get('/module/{id}', 'ModuleController@show');
 Route::get('/survey/{id}', 'SurveyController@show');
 Route::post('/survey/', 'SurveyController@store');
 Route::get('/survey/', 'SurveyController@index');
+Route::post('/module/', 'ModuleController@store');
 

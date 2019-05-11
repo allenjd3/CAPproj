@@ -12,4 +12,13 @@ class ModuleController extends Controller
         $module = Module::findOrFail($id);
         return $module;
     }
+
+    public function store(Request $request) {
+        $module = Module::create($request->all());
+
+        return response()->json([
+            'created'=>true,
+            'module'=>$module
+        ], 202);
+    }
 }

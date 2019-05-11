@@ -27,4 +27,22 @@ class ModuleControllerTest extends TestCase
             'number'=>1520
             ]);
     }
+
+    /**
+    *@test
+    */
+    function a_user_can_create_a_module() {
+        $response = $this->json('POST', 'api/module/', [
+            'number' => 1234,
+            'tests' => ['Na', 'K', 'Cl']
+        ]);
+
+        $response->assertJson([
+            'created' => true,
+
+        ]);
+
+    }
+
+    
 }
