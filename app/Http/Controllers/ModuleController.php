@@ -32,4 +32,12 @@ class ModuleController extends Controller
             'module'=>$module
         ], 202);
     }
+
+    public function getsurvey(Request $request, $id) {
+        $module = Module::findOrFail($id);
+        $surveys = $module->surveys()->get();
+        return response()->json([
+            'surveys'=>$surveys
+        ]);
+    }
 }

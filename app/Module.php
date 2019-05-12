@@ -10,4 +10,8 @@ class Module extends Model
     protected $casts = [
         'tests' => 'array',
     ];
+
+    public function surveys() {
+        return $this->hasMany('App\Survey');
+    }
 }

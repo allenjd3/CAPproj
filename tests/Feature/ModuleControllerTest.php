@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Module;
+use App\User;
+use App\Survey;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -67,5 +69,24 @@ class ModuleControllerTest extends TestCase
         $mod = Module::find($module->id);
         $this->assertEquals(5678, $mod->number);
         $this->assertEquals('Special Clinical Microscopy', $mod->main_title);
+    }
+
+    /**
+    *@test
+    */
+    function a_user_can_get_surveys_that_belong_to_specific_modules() {
+        
+        $this->withoutExceptionHandling();
+        $module = factory(Module::class)->create();
+        $user = factory(User::class)->create();
+        $surveys = factory(Survey::class, 5)->create([
+            'title'=>'Random Stinking Title',
+            'module_id'=>$module->id,
+            'user_id'=>$user->id
+        ]);
+
+        $response = $this->json('GET', "/api/module/$module->id/survey");
+        $response->assertStatus(200);
+        $this->assertCount(5, $response->getData()->surveys);
     }
 }
