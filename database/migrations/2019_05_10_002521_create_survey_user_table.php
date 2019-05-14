@@ -16,7 +16,10 @@ class CreateSurveyUserTable extends Migration
         Schema::create('survey_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('survey_id');
+            $table->foreign('survey_id')->references('id')->on('surveys');
             $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 

@@ -7,6 +7,7 @@ use App\Module;
 use App\Survey;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -88,7 +89,28 @@ class SurveyControllerTest extends TestCase
         $this->assertEquals(Carbon::parse('05/12/20'), $sur->due_date);
     }
 
-    
+    /**
+    *@test
+    */
+    function a_user_can_get_all_users_associated_with_survey() {
+        $this->withoutExceptionHandling();
+        $module = factory(Module::class)->create();
+
+        $survey = factory(Survey::class)->create();
+
+        for($x=0; $x<=4; $x++) {
+            $survey->users()->create([
+                'name'=>'James Allen',
+                'email'=>"jacque2186$x@yahoo.com",
+                'password'=>Hash::make('password'),
+                'user_id'=>$survey->id
+            ]);
+        }
+        $response = $this->json('GET', "api/survey/$survey->id/user");
+        $response->assertStatus(200);
+        $this->assertCount(5, $response->getData()->users);
+        
+    }
     
 
     

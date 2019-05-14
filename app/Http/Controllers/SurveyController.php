@@ -40,4 +40,14 @@ class SurveyController extends Controller
             'updated'=>true
         ]);
     }
+
+    public function getuser(Request $request, $id)
+    {
+        $survey = Survey::findOrFail($id);
+        $users = $survey->users()->get();
+
+        return response()->json([
+            'users' => $users
+        ]);
+    }
 }
