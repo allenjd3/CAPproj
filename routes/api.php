@@ -21,3 +21,5 @@ Route::post('/module/', 'ModuleController@store');
 Route::put('/module/{id}', 'ModuleController@update');
 Route::put('/survey/{id}', 'SurveyController@update');
 Route::get('/module/{id}/survey', 'ModuleController@getsurvey');
+Route::get('/user/{id}/survey', 'UserController@getsurvey');
+Route::get('/survey/{id}/user', 'SurveyController@getuser');
